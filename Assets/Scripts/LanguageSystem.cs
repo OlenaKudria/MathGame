@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
-
+using TMPro;
 
 public class Language
 {
@@ -12,8 +12,7 @@ public class Language
 
 public class LanguageSystem : MonoBehaviour
 {
-    public Image languageButtonImage;
-    public Sprite[] flags;
+    public TextMeshProUGUI[] buttons;
 
     private string json;
     public static Language language = new Language();
@@ -40,30 +39,26 @@ public class LanguageSystem : MonoBehaviour
                 if (PlayerPrefs.GetString("Language") == languageArray[i])
                 {
                     languageIndex = i + 1;
-                    languageButtonImage.sprite = flags[i];
                     break;
                 }
             }
+        SwitchButtons();
     }
 
     void LanguageLoad()
     {
         json = File.ReadAllText(Application.streamingAssetsPath + "/Languages/" + PlayerPrefs.GetString("Language") + ".json");
-        Debug.Log(json);
 
         language = JsonUtility.FromJson<Language>(json);
         Debug.Log(language.choosingButtons[0]);
     }
 
-    public void SwitchFlags()
+    void SwitchButtons()
     {
-        if (languageIndex != languageArray.Length) languageIndex++;
-        else languageIndex = 1;
-
-        PlayerPrefs.SetString("Language", languageArray[languageIndex - 1]);
-
-        languageButtonImage.sprite = flags[languageIndex - 1];
-        LanguageLoad();
+        for (int i = 0; i < buttons.Length; i++)
+        {
+                buttons[i].text = language.choosingButtons[i];
+                Debug.Log(buttons[i].text);
+        }
     }
-
 }
