@@ -1141,8 +1141,8 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &803840201
-Transform:
+--- !u!224 &803840201
+RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1155,6 +1155,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &803840202
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1167,6 +1172,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbcbc6476f60ddd48aa87b60339c5a12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  buttons:
+  - {fileID: 953311619}
+  - {fileID: 1069556614}
 --- !u!1 &937070765
 GameObject:
   m_ObjectHideFlags: 0
@@ -1332,7 +1340,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u0421\u0438\u0441\u0442\u0435\u043C\u0430 \u0422\u0440\u0430\u0445\u0442\u0438\u043D\u0431\u0435\u0440\u0433\u0430"
+  m_text: ooo
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 71caa95f59316a740b83e845d3d173b1, type: 2}
   m_sharedMaterial: {fileID: 5241488059191618036, guid: 71caa95f59316a740b83e845d3d173b1, type: 2}
@@ -1359,12 +1367,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 50.12
+  m_fontSize: 44.64
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 50.12
+  m_fontSizeMax: 44.64
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
@@ -1541,7 +1549,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u0410\u0440\u0438\u0444\u043C\u0435\u0442\u0438\u043A\u0430\n"
+  m_text: ooo
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 71caa95f59316a740b83e845d3d173b1, type: 2}
   m_sharedMaterial: {fileID: 5241488059191618036, guid: 71caa95f59316a740b83e845d3d173b1, type: 2}

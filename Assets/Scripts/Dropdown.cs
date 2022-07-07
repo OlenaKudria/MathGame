@@ -2,17 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Dropdown : MonoBehaviour
+public class DropDown : MonoBehaviour
 {
-    // Start is called before the first frame update
+    private LanguageSystem languageSystem;
+
     void Start()
     {
-        
+        languageSystem = FindObjectOfType<LanguageSystem>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

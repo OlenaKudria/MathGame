@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
-
+using TMPro;
 
 public class Language
 {
@@ -12,6 +12,7 @@ public class Language
 
 public class LanguageSystem : MonoBehaviour
 {
+    public TextMeshProUGUI[] buttons;
 
     private string json;
     public static Language language = new Language();
@@ -41,6 +42,7 @@ public class LanguageSystem : MonoBehaviour
                     break;
                 }
             }
+        SwitchButtons();
     }
 
     void LanguageLoad()
@@ -51,4 +53,12 @@ public class LanguageSystem : MonoBehaviour
         Debug.Log(language.choosingButtons[0]);
     }
 
+    void SwitchButtons()
+    {
+        for (int i = 0; i < buttons.Length; i++)
+        {
+                buttons[i].text = language.choosingButtons[i];
+                Debug.Log(buttons[i].text);
+        }
+    }
 }
