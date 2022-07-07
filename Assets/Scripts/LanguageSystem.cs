@@ -17,7 +17,7 @@ public class LanguageSystem : MonoBehaviour
     private string json;
     public static Language language = new Language();
     private int languageIndex = 1;
-    private string[] languageArray = { "ua_UA", "en_EN" };
+    public string[] languageArray = { "ua_UA", "en_EN" };
 
     private void Awake()
     {
@@ -50,15 +50,26 @@ public class LanguageSystem : MonoBehaviour
         json = File.ReadAllText(Application.streamingAssetsPath + "/Languages/" + PlayerPrefs.GetString("Language") + ".json");
 
         language = JsonUtility.FromJson<Language>(json);
-        Debug.Log(language.choosingButtons[0]);
     }
 
+ 
     void SwitchButtons()
     {
         for (int i = 0; i < buttons.Length; i++)
         {
                 buttons[i].text = language.choosingButtons[i];
-                Debug.Log(buttons[i].text);
         }
     }
+
+    public void SwitchLanguage()
+    {
+        if (languageIndex != languageArray.Length) languageIndex++;
+        else languageIndex = 1;
+
+        PlayerPrefs.SetString("Language", languageArray[languageIndex - 1]);
+
+        LanguageLoad();
+        SwitchButtons();
+    }
+
 }

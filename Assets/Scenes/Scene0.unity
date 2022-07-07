@@ -475,7 +475,19 @@ MonoBehaviour:
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 803840203}
+        m_TargetAssemblyTypeName: DropDown, Assembly-CSharp
+        m_MethodName: HandleInputData
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_AlphaFadeSpeed: 0.15
 --- !u!114 &196786640
 MonoBehaviour:
@@ -1134,6 +1146,7 @@ GameObject:
   m_Component:
   - component: {fileID: 803840201}
   - component: {fileID: 803840202}
+  - component: {fileID: 803840203}
   m_Layer: 0
   m_Name: LanguageManager
   m_TagString: Untagged
@@ -1175,6 +1188,22 @@ MonoBehaviour:
   buttons:
   - {fileID: 953311619}
   - {fileID: 1069556614}
+  languageArray:
+  - ua_UA
+  - en_EN
+--- !u!114 &803840203
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 803840200}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ae01ff4a05e1ba40b4352799a046f51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dropdown: {fileID: 196786639}
 --- !u!1 &937070765
 GameObject:
   m_ObjectHideFlags: 0
@@ -1295,7 +1324,7 @@ GameObject:
   - component: {fileID: 953311620}
   - component: {fileID: 953311619}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Trachtenbergsystem(TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1504,7 +1533,7 @@ GameObject:
   - component: {fileID: 1069556615}
   - component: {fileID: 1069556614}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Arithmetic(TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1841,7 +1870,7 @@ MonoBehaviour:
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 37.23
+  m_fontSizeMax: 28.87
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
