@@ -1,7 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 
 public class DropDown : MonoBehaviour
 {
@@ -11,25 +9,16 @@ public class DropDown : MonoBehaviour
     void Start()
     {
         languageSystem = FindObjectOfType<LanguageSystem>();
+        dropdown.value = PlayerPrefs.GetInt("Value");
     }
 
     public void HandleInputData()
     {
-        if(dropdown.value == 0)
-        { 
-            if(PlayerPrefs.GetString("Langu age") != languageSystem.languageArray[0])
-            {
-                languageSystem.SwitchLanguage();
-            }
-        }
-
-        if(dropdown.value == 1)
+        if (PlayerPrefs.GetString("Language") != languageSystem.languageArray[dropdown.value])
         {
-            if (PlayerPrefs.GetString("Language") != languageSystem.languageArray[1])
-            {
-                languageSystem.SwitchLanguage();
-            }
+            languageSystem.SwitchLanguage();
         }
+        PlayerPrefs.SetInt("Value", dropdown.value);
     }
 
 }

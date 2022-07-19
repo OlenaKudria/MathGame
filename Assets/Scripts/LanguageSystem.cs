@@ -1,9 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using System.IO;
-using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
+using UnityEngine;
 
 public class Language
 {
@@ -19,14 +16,19 @@ public class LanguageSystem : MonoBehaviour
     private int languageIndex = 1;
     public string[] languageArray = { "ua_UA", "en_EN" };
 
+
     private void Awake()
     {
         if (!PlayerPrefs.HasKey("Language"))
         {
             if (Application.systemLanguage == SystemLanguage.Ukrainian)
+            {
                 PlayerPrefs.SetString("Language", "ua_UA");
+            }
             else
+            {
                 PlayerPrefs.SetString("Language", "en_EN");
+            }
         }
         LanguageLoad();
 
@@ -34,14 +36,14 @@ public class LanguageSystem : MonoBehaviour
 
     private void Start()
     {
-            for (int i = 0; i < languageArray.Length; i++)
+        for (int i = 0; i < languageArray.Length; i++)
+        {
+            if (PlayerPrefs.GetString("Language") == languageArray[i])
             {
-                if (PlayerPrefs.GetString("Language") == languageArray[i])
-                {
-                    languageIndex = i + 1;
-                    break;
-                }
+                languageIndex = i + 1;
+                break;
             }
+        }
         SwitchButtons();
     }
 
@@ -52,12 +54,12 @@ public class LanguageSystem : MonoBehaviour
         language = JsonUtility.FromJson<Language>(json);
     }
 
- 
+
     void SwitchButtons()
     {
         for (int i = 0; i < buttons.Length; i++)
         {
-                buttons[i].text = language.choosingButtons[i];
+            buttons[i].text = language.choosingButtons[i];
         }
     }
 
@@ -67,7 +69,6 @@ public class LanguageSystem : MonoBehaviour
         else languageIndex = 1;
 
         PlayerPrefs.SetString("Language", languageArray[languageIndex - 1]);
-
         LanguageLoad();
         SwitchButtons();
     }
