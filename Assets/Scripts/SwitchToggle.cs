@@ -1,7 +1,8 @@
+using DG.Tweening;
+using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using DG.Tweening;
-using TMPro;
 public class SwitchToggle : MonoBehaviour
 {
     [Header("Toggle info")]
@@ -21,31 +22,41 @@ public class SwitchToggle : MonoBehaviour
     public TextMeshProUGUI[] buttonsText;
     [Header("Sprites of themes")]
     public Sprite[] backgroundThemeImage;
+
     Color purple = new Color(78 / 255f, 64 / 255f, 89 / 255f);
     private void Awake()
     {
         toggle = GetComponent<Toggle>();
-
         handlerPosition = uiHandlerRectTransform.anchoredPosition;
         backgroundDefaultColor = backgroundImage.color;
         handlerDefaultColor = handlerImage.color;
         toggle.onValueChanged.AddListener(OnSwitch);
-        if(toggle.isOn)
-        {
-            OnSwitch(true);
-        }
+
+        bool stateOfTheme = Convert.ToBoolean(PlayerPrefs.GetInt("Theme"));
+        toggle.isOn = stateOfTheme;
+        OnSwitch(stateOfTheme);
+
     }
 
-    void OnSwitch(bool on)
+    void ChangeThemeImage(int value)
     {
-        uiHandlerRectTransform.DOAnchorPos(on ? handlerPosition * -1 : handlerPosition, .4f).SetEase(Ease.InOutBack);
-        backgroundImage.DOColor(on ? backgroundActiveColor : backgroundDefaultColor, 4f);
-        handlerImage.DOColor(on ? handlerActiveColor : handlerDefaultColor, 1f);
+        themeImage.sprite = changingThemeImage[value];
+    }
 
-        if (on)
+    void ChangeBackgroundTheme(int value)
+    {
+        background.sprite = backgroundThemeImage[value];
+    }
+
+    void OnSwitch(bool onBool)
+    {
+        uiHandlerRectTransform.DOAnchorPos(onBool ? handlerPosition * -1 : handlerPosition, .4f).SetEase(Ease.InOutBack);
+        backgroundImage.DOColor(onBool ? backgroundActiveColor : backgroundDefaultColor, 4f);
+        handlerImage.DOColor(onBool ? handlerActiveColor : handlerDefaultColor, 1f);
+
+        if (onBool)
         {
-            themeImage.sprite = changingThemeImage[1];
-            background.sprite = backgroundThemeImage[1];
+
             for (int i = 0; i < buttons.Length; i++)
             {
                 buttons[i].color = purple;
@@ -55,18 +66,17 @@ public class SwitchToggle : MonoBehaviour
         }
         else
         {
-            themeImage.sprite = changingThemeImage[0];
-            background.sprite = backgroundThemeImage[0];
             for (int i = 0; i < buttons.Length; i++)
             {
                 buttons[i].color = Color.white;
                 buttonsText[i].color = Color.black;
             }
         }
+
+        int onInt = Convert.ToInt32(onBool);
+        ChangeThemeImage(onInt);
+        ChangeBackgroundTheme(onInt);
+        PlayerPrefs.SetInt("Theme", onInt);
     }
 
-    private void OnDestroy()
-    {
-        toggle.onValueChanged.RemoveListener(OnSwitch);
-    }
 }
