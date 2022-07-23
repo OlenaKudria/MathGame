@@ -62,7 +62,6 @@ public class SwitchToggle : MonoBehaviour
                 buttons[i].color = purple;
                 buttonsText[i].color = Color.white;
             }
-
         }
         else
         {

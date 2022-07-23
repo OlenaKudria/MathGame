@@ -1,6 +1,7 @@
 using System.IO;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Networking;
 
 public class Language
 {
@@ -16,22 +17,18 @@ public class LanguageSystem : MonoBehaviour
     private int languageIndex = 1;
     public string[] languageArray = { "ua_UA", "en_EN" };
 
-
     private void Awake()
     {
         if (!PlayerPrefs.HasKey("Language"))
         {
-            if (Application.systemLanguage == SystemLanguage.Ukrainian)
+            int language = 0;
+            if (Application.systemLanguage != SystemLanguage.Ukrainian)
             {
-                PlayerPrefs.SetString("Language", "ua_UA");
+                 language = 1;
             }
-            else
-            {
-                PlayerPrefs.SetString("Language", "en_EN");
-            }
+            PlayerPrefs.SetString("Language", languageArray[language]);
         }
         LanguageLoad();
-
     }
 
     private void Start()
@@ -49,11 +46,22 @@ public class LanguageSystem : MonoBehaviour
 
     void LanguageLoad()
     {
-        json = File.ReadAllText(Application.streamingAssetsPath + "/Languages/" + PlayerPrefs.GetString("Language") + ".json");
+#if UNITY_ANDROID && !UNITY_EDITOR
+        string path = Path.Combine(Application.streamingAssetsPath, "Languages/" + PlayerPrefs.GetString("Language") + ".json");
+        WWW reader = new WWW(path);
+        while(!reader.isDone)
+        {
 
+        }
+
+        json = reader.text;
+#endif
+
+#if UNITY_EDITOR
+        json = File.ReadAllText(Application.streamingAssetsPath + "/Languages/" + PlayerPrefs.GetString("Language") + ".json");
+#endif
         language = JsonUtility.FromJson<Language>(json);
     }
-
 
     void SwitchButtons()
     {
