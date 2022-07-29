@@ -17,13 +17,18 @@ public class SwitchToggle : MonoBehaviour
     Vector2 handlerPosition;
 
     [Header("Changing theme objects")]
-    public Image background;
+    public Image[] backgrounds;
     public Image[] buttons;
+    public Image messageBox;
+    public Image[] exitButtons;
+    public Image[] difficultyLevelButtons;
     public TextMeshProUGUI[] buttonsText;
+    public TextMeshProUGUI messageBoxText;
     [Header("Sprites of themes")]
     public Sprite[] backgroundThemeImage;
 
     Color purple = new Color(78 / 255f, 64 / 255f, 89 / 255f);
+    Color lightPurple = new Color(159 / 255f, 138 / 255f, 171 / 255f);
     private void Awake()
     {
         toggle = GetComponent<Toggle>();
@@ -45,7 +50,8 @@ public class SwitchToggle : MonoBehaviour
 
     void ChangeBackgroundTheme(int value)
     {
-        background.sprite = backgroundThemeImage[value];
+        for (int i = 0; i < backgrounds.Length; i++)
+            backgrounds[i].sprite = backgroundThemeImage[value];
     }
 
     void OnSwitch(bool onBool)
@@ -56,6 +62,13 @@ public class SwitchToggle : MonoBehaviour
 
         if (onBool)
         {
+            messageBox.color = purple;
+            messageBoxText.color = Color.white;
+            for (int i = 0; i < exitButtons.Length; i++)
+                exitButtons[i].color = purple;
+
+            for (int i = 0; i < difficultyLevelButtons.Length; i++)
+                difficultyLevelButtons[i].color = lightPurple;
 
             for (int i = 0; i < buttons.Length; i++)
             {
@@ -65,6 +78,14 @@ public class SwitchToggle : MonoBehaviour
         }
         else
         {
+            messageBox.color = Color.white;
+            messageBoxText.color = Color.black;
+            for (int i = 0; i < exitButtons.Length; i++)
+                exitButtons[i].color = Color.white;
+
+            for (int i = 0; i < difficultyLevelButtons.Length; i++)
+                difficultyLevelButtons[i].color = Color.white;
+
             for (int i = 0; i < buttons.Length; i++)
             {
                 buttons[i].color = Color.white;

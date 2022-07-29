@@ -6,11 +6,13 @@ using UnityEngine.Networking;
 public class Language
 {
     public string[] choosingButtons;
+    public string headerOfMessageBox;
 }
 
 public class LanguageSystem : MonoBehaviour
 {
     public TextMeshProUGUI[] buttons;
+    public TextMeshProUGUI headerMessageBox;
 
     private string json;
     public static Language language = new Language();
@@ -19,6 +21,7 @@ public class LanguageSystem : MonoBehaviour
 
     private void Awake()
     {
+
         if (!PlayerPrefs.HasKey("Language"))
         {
             int language = 0;
@@ -42,6 +45,7 @@ public class LanguageSystem : MonoBehaviour
             }
         }
         SwitchButtons();
+        SwitchHeaderOfMessageBox();
     }
 
     void LanguageLoad()
@@ -49,11 +53,7 @@ public class LanguageSystem : MonoBehaviour
 #if UNITY_ANDROID && !UNITY_EDITOR
         string path = Path.Combine(Application.streamingAssetsPath, "Languages/" + PlayerPrefs.GetString("Language") + ".json");
         WWW reader = new WWW(path);
-        while(!reader.isDone)
-        {
-
-        }
-
+        while(!reader.isDone) { }
         json = reader.text;
 #endif
 
@@ -71,6 +71,11 @@ public class LanguageSystem : MonoBehaviour
         }
     }
 
+    void SwitchHeaderOfMessageBox()
+    {
+        headerMessageBox.text = language.headerOfMessageBox;
+    }
+
     public void SwitchLanguage()
     {
         if (languageIndex != languageArray.Length) languageIndex++;
@@ -79,6 +84,7 @@ public class LanguageSystem : MonoBehaviour
         PlayerPrefs.SetString("Language", languageArray[languageIndex - 1]);
         LanguageLoad();
         SwitchButtons();
+        SwitchHeaderOfMessageBox();
     }
 
 }

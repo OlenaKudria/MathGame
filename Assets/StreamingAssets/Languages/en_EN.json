@@ -1,5 +1,6 @@
 {
    "choosingButtons":[
        "Trachtenberg system","Arithmetic"
-   ]
+   ],
+    "headerOfMessageBox":"Choose difficulty level"
 }
