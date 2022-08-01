@@ -16,7 +16,7 @@ public class CalculatorManager : MonoBehaviour
     int valueTwo;
 
     public void DoRandomRange()
-    {
+    {//
         valueOne = Random.Range(0, 100);
         valueTwo = Random.Range(0, 100);
     }
