@@ -5,6 +5,8 @@ using UnityEngine;
 using UnityEngine.UI;
 public class SwitchToggle : MonoBehaviour
 {
+    private SoundManager soundManager;
+
     [Header("Toggle info")]
     public Sprite[] changingThemeImage;
     public RectTransform uiHandlerRectTransform;
@@ -31,6 +33,8 @@ public class SwitchToggle : MonoBehaviour
     Color lightPurple = new Color(159 / 255f, 138 / 255f, 171 / 255f);
     private void Awake()
     {
+        soundManager = FindObjectOfType<SoundManager>();
+
         toggle = GetComponent<Toggle>();
         handlerPosition = uiHandlerRectTransform.anchoredPosition;
         backgroundDefaultColor = backgroundImage.color;
@@ -56,6 +60,7 @@ public class SwitchToggle : MonoBehaviour
 
     void OnSwitch(bool onBool)
     {
+        soundManager.DoSoundOnClick();
         uiHandlerRectTransform.DOAnchorPos(onBool ? handlerPosition * -1 : handlerPosition, .4f).SetEase(Ease.InOutBack);
         backgroundImage.DOColor(onBool ? backgroundActiveColor : backgroundDefaultColor, 4f);
         handlerImage.DOColor(onBool ? handlerActiveColor : handlerDefaultColor, 1f);
@@ -71,10 +76,10 @@ public class SwitchToggle : MonoBehaviour
                 difficultyLevelButtons[i].color = lightPurple;
 
             for (int i = 0; i < buttons.Length; i++)
-            {
                 buttons[i].color = purple;
+
+            for (int i = 0; i < buttonsText.Length; i++)
                 buttonsText[i].color = Color.white;
-            }
         }
         else
         {
@@ -87,10 +92,10 @@ public class SwitchToggle : MonoBehaviour
                 difficultyLevelButtons[i].color = Color.white;
 
             for (int i = 0; i < buttons.Length; i++)
-            {
                 buttons[i].color = Color.white;
+                
+            for (int i = 0; i < buttonsText.Length; i++)
                 buttonsText[i].color = Color.black;
-            }
         }
 
         int onInt = Convert.ToInt32(onBool);

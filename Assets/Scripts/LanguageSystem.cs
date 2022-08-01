@@ -13,6 +13,7 @@ public class LanguageSystem : MonoBehaviour
 {
     public TextMeshProUGUI[] buttons;
     public TextMeshProUGUI headerMessageBox;
+    private SoundManager soundManager;
 
     private string json;
     public static Language language = new Language();
@@ -36,6 +37,7 @@ public class LanguageSystem : MonoBehaviour
 
     private void Start()
     {
+        soundManager = FindObjectOfType<SoundManager>();
         for (int i = 0; i < languageArray.Length; i++)
         {
             if (PlayerPrefs.GetString("Language") == languageArray[i])
@@ -85,6 +87,7 @@ public class LanguageSystem : MonoBehaviour
         LanguageLoad();
         SwitchButtons();
         SwitchHeaderOfMessageBox();
+        soundManager.DoSoundOnClick();
     }
 
 }
