@@ -7,18 +7,72 @@ public class CalculatorManager : MonoBehaviour
     public TextMeshProUGUI inputFieldUGUI;
     public TextMeshProUGUI taskField;
     private SoundManager soundManager;
+    private UIManager uiManager;
 
-    string inputStringField;
-    string pressedButtonValue;
-    int resultOfRandom;
-    string resultOfTask;
-    int valueOne;
-    int valueTwo;
+    private string inputStringField;
+    private string pressedButtonValue;
+    private int resultOfRandom;
+    private string resultOfTask;
+    private int valueOne = 1;
+    private int valueTwo = 1;
+    private int randomSign;
 
     public void DoRandomRange()
-    {//
-        valueOne = Random.Range(0, 100);
-        valueTwo = Random.Range(0, 100);
+    {
+        switch (uiManager.selectedLevel)
+        {
+            case "Mix":
+                valueOne = Random.Range(1, 1001);
+                valueTwo = Random.Range(1, 1001);
+                break;
+
+            case "Level1<100Button":
+                valueOne = Random.Range(1, 101);
+                valueTwo = Random.Range(1, 101);
+                break;
+
+            case "Level100<500Button":
+                valueOne = Random.Range(100, 501);
+                valueTwo = Random.Range(100, 501);
+                break;
+
+            case "Level500<1000Button":
+                valueOne = Random.Range(500, 1001);
+                valueTwo = Random.Range(500, 1001);
+                break;
+        }
+    }
+
+    public void DecideOnSign()
+    {
+        randomSign = Random.Range(1, 4);
+        switch (randomSign)
+        {
+            case 1:
+                resultOfRandom = valueOne + valueTwo;
+                resultOfTask = $"{valueOne} + {valueTwo}";
+                break;
+
+            case 2:
+                if (valueOne > valueTwo)
+                {
+                    resultOfRandom = valueOne - valueTwo;
+                    resultOfTask = $"{valueOne} - {valueTwo}";
+                }
+                else
+                {
+                    resultOfRandom = valueTwo - valueOne;
+                    resultOfTask = $"{valueTwo} - {valueOne}";
+                }
+                break;
+
+            case 3:
+                resultOfRandom = valueOne * valueTwo;
+                resultOfTask = $"{valueOne} * {valueTwo}";
+                break;
+
+        }
+
     }
     public void ClearString()
     {
@@ -29,14 +83,15 @@ public class CalculatorManager : MonoBehaviour
     public void ShowTask()
     {
         DoRandomRange();
-        resultOfRandom = valueOne + valueTwo;
-        resultOfTask = $"{valueOne} + {valueTwo}";
+        DecideOnSign();
         taskField.text = resultOfTask;
     }
 
-    private void Start()
+
+    private void Awake()
     {
         soundManager = FindObjectOfType<SoundManager>();
+        uiManager = FindObjectOfType<UIManager>();
         ShowTask();
     }
 
@@ -45,27 +100,32 @@ public class CalculatorManager : MonoBehaviour
         soundManager.DoSoundOnClick();
         pressedButtonValue = EventSystem.current.currentSelectedGameObject.name;
 
-        if (pressedButtonValue != "=")
-        {
-            if (pressedButtonValue == "X")
-            {
-                pressedButtonValue = string.Empty;
-                ClearString();
-            }
-            inputStringField += pressedButtonValue;
-            inputFieldUGUI.text = inputStringField;
-        }
-        else
+        if (pressedButtonValue == "=")
         {
             if (inputFieldUGUI.text == resultOfRandom.ToString())
             {
-                ClearString();
                 ShowTask();
             }
             else
             {
-                ClearString();
+                soundManager.DoTryAgainSound();
+                uiManager.ShowTryAgainMessage();
             }
+            ClearString();
+        }
+        else
+        {
+            if (pressedButtonValue == "X")
+            {
+                if (inputStringField.Length > 0)
+                {
+                    pressedButtonValue = string.Empty;
+                    inputStringField = inputStringField.Remove(inputStringField.Length - 1);
+                    inputFieldUGUI.text = inputStringField;
+                }
+            }
+            inputStringField += pressedButtonValue;
+            inputFieldUGUI.text = inputStringField;
         }
     }
 }

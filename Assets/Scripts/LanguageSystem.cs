@@ -6,13 +6,13 @@ using UnityEngine.Networking;
 public class Language
 {
     public string[] choosingButtons;
-    public string headerOfMessageBox;
+    public string headerOfMessageBox, tryAgainMessageBox;
 }
 
 public class LanguageSystem : MonoBehaviour
 {
     public TextMeshProUGUI[] buttons;
-    public TextMeshProUGUI headerMessageBox;
+    public TextMeshProUGUI headerMessageBox, tryAgainMessageBox;
     private SoundManager soundManager;
 
     private string json;
@@ -48,6 +48,7 @@ public class LanguageSystem : MonoBehaviour
         }
         SwitchButtons();
         SwitchHeaderOfMessageBox();
+        SwitchTryAgainMessageBox();
     }
 
     void LanguageLoad()
@@ -73,6 +74,11 @@ public class LanguageSystem : MonoBehaviour
         }
     }
 
+    void SwitchTryAgainMessageBox()
+    {
+        tryAgainMessageBox.text = language.tryAgainMessageBox;
+    }
+
     void SwitchHeaderOfMessageBox()
     {
         headerMessageBox.text = language.headerOfMessageBox;
@@ -87,6 +93,7 @@ public class LanguageSystem : MonoBehaviour
         LanguageLoad();
         SwitchButtons();
         SwitchHeaderOfMessageBox();
+        SwitchTryAgainMessageBox();
         soundManager.DoSoundOnClick();
     }
 

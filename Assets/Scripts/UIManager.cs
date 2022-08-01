@@ -1,16 +1,26 @@
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.EventSystems;
+
 
 public class UIManager : MonoBehaviour
 {
     private SoundManager soundManager;
-    public RectTransform mainMenu, arithmeticMenu, trachtenbergMenu, chooseDifficultyMenu;
+    private CalculatorManager calculatorManager;
+    public RectTransform mainMenu, arithmeticMenu, trachtenbergMenu, chooseDifficultyMenu, tryAgainMessage;
+    public string selectedLevel;
     void Start()
     {
         soundManager = FindObjectOfType<SoundManager>();
+        calculatorManager = FindObjectOfType<CalculatorManager>();
         mainMenu.DOAnchorPos(Vector2.zero, 0.25f);
     }
 
+    public void ShowTryAgainMessage()
+    {
+        tryAgainMessage.DOAnchorPos(new Vector2(282, -434), 0.45f);
+        tryAgainMessage.DOAnchorPos(new Vector2(-1090, -434), 0.90f).SetDelay(0.90f);
+    }
     public void ChooseDifficultyMenu()
     {
         chooseDifficultyMenu.DOAnchorPos(Vector2.zero, 0.45f);
@@ -24,6 +34,8 @@ public class UIManager : MonoBehaviour
 
     public void ArithmeticMenu()
     {
+        selectedLevel = EventSystem.current.currentSelectedGameObject.name;
+        calculatorManager.ShowTask();
         arithmeticMenu.DOAnchorPos(Vector2.zero, 0.25f);
         mainMenu.DOAnchorPos(new Vector2(-2770, 0), 0.25f);
         CloseChooseDifficultyMenu();

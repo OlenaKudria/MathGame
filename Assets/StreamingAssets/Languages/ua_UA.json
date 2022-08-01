@@ -2,5 +2,6 @@
    "choosingButtons":[
        "Система Трахтенберга","Арифметика"
    ],
-    "headerOfMessageBox":"Оберіть рівень складності"
+    "headerOfMessageBox":"Оберіть рівень складності",
+    "tryAgainMessageBox":"Спробуй знову!"
 }
