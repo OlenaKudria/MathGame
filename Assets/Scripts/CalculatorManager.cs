@@ -45,12 +45,22 @@ public class CalculatorManager : MonoBehaviour
 
     public void DecideOnSign()
     {
-        randomSign = Random.Range(1, 4);
+        randomSign = Random.Range(1, 5);
         switch (randomSign)
         {
             case 1:
-                resultOfRandom = valueOne + valueTwo;
-                resultOfTask = $"{valueOne} + {valueTwo}";
+                if (valueOne > valueTwo)
+                {
+                    valueOne = valueTwo * Random.Range(1, 10);
+                    resultOfRandom = valueOne / valueTwo;
+                    resultOfTask = $"{valueOne} / {valueTwo}";
+                }
+                else
+                {
+                    valueTwo = valueOne * Random.Range(1, 10);
+                    resultOfRandom = valueTwo / valueOne;
+                    resultOfTask = $"{valueTwo} / {valueOne}";
+                }
                 break;
 
             case 2:
@@ -71,6 +81,11 @@ public class CalculatorManager : MonoBehaviour
                 resultOfTask = $"{valueOne} * {valueTwo}";
                 break;
 
+            case 4:
+                resultOfRandom = valueOne + valueTwo;
+                resultOfTask = $"{valueOne} + {valueTwo}";
+                break;
+
         }
 
     }
@@ -86,7 +101,6 @@ public class CalculatorManager : MonoBehaviour
         DecideOnSign();
         taskField.text = resultOfTask;
     }
-
 
     private void Awake()
     {
@@ -108,8 +122,11 @@ public class CalculatorManager : MonoBehaviour
             }
             else
             {
-                soundManager.DoTryAgainSound();
-                uiManager.ShowTryAgainMessage();
+                if (inputFieldUGUI.text.Length != 0)
+                {
+                    soundManager.DoTryAgainSound();
+                    uiManager.ShowTryAgainMessage();
+                }
             }
             ClearString();
         }
@@ -124,8 +141,11 @@ public class CalculatorManager : MonoBehaviour
                     inputFieldUGUI.text = inputStringField;
                 }
             }
-            inputStringField += pressedButtonValue;
-            inputFieldUGUI.text = inputStringField;
+            else
+            {
+                inputStringField += pressedButtonValue;
+                inputFieldUGUI.text = inputStringField;
+            }
         }
     }
 }

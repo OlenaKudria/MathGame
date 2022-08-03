@@ -7,12 +7,14 @@ public class UIManager : MonoBehaviour
 {
     private SoundManager soundManager;
     private CalculatorManager calculatorManager;
-    public RectTransform mainMenu, arithmeticMenu, trachtenbergMenu, chooseDifficultyMenu, tryAgainMessage;
+    private TractenbergSystemUIManager tractenbergSystemUIManager;
+    public RectTransform mainMenu, arithmeticMenu, trachtenbergMenu, chooseDifficultyMenu, tryAgainMessage, title;
     public string selectedLevel;
     void Start()
     {
         soundManager = FindObjectOfType<SoundManager>();
         calculatorManager = FindObjectOfType<CalculatorManager>();
+        tractenbergSystemUIManager = FindObjectOfType<TractenbergSystemUIManager>();
         mainMenu.DOAnchorPos(Vector2.zero, 0.25f);
     }
 
@@ -53,6 +55,7 @@ public class UIManager : MonoBehaviour
     {
         mainMenu.DOAnchorPos(new Vector2(2770, 0), 0.25f);
         trachtenbergMenu.DOAnchorPos(Vector2.zero, 0.25f);
+        tractenbergSystemUIManager.TrachtenbergUI();
         soundManager.DoSoundOnClick();
     }
 

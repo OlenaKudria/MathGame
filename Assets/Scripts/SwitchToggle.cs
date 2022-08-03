@@ -24,10 +24,14 @@ public class SwitchToggle : MonoBehaviour
     public Image messageBox;
     public Image[] exitButtons;
     public Image[] difficultyLevelButtons;
+    public Image[] questionMarks;
     public TextMeshProUGUI[] buttonsText;
+    public TextMeshProUGUI[] titlesText;
     public TextMeshProUGUI messageBoxText;
-    [Header("Sprites of themes")]
+    [Header("Sprites")]
     public Sprite[] backgroundThemeImage;
+    public Sprite[] questionMarksSprites;
+
 
     Color purple = new Color(78 / 255f, 64 / 255f, 89 / 255f);
     Color lightPurple = new Color(159 / 255f, 138 / 255f, 171 / 255f);
@@ -47,9 +51,13 @@ public class SwitchToggle : MonoBehaviour
 
     }
 
-    void ChangeThemeImage(int value)
+    void ChangeImage(int value)
     {
         themeImage.sprite = changingThemeImage[value];
+        for (int i = 0; i < questionMarks.Length; i++)
+        {
+            questionMarks[i].sprite = questionMarksSprites[value];
+        }
     }
 
     void ChangeBackgroundTheme(int value)
@@ -80,6 +88,10 @@ public class SwitchToggle : MonoBehaviour
 
             for (int i = 0; i < buttonsText.Length; i++)
                 buttonsText[i].color = Color.white;
+
+            for (int i = 0; i < titlesText.Length; i++)
+                titlesText[i].color = Color.white;
+
         }
         else
         {
@@ -93,13 +105,16 @@ public class SwitchToggle : MonoBehaviour
 
             for (int i = 0; i < buttons.Length; i++)
                 buttons[i].color = Color.white;
-                
+
             for (int i = 0; i < buttonsText.Length; i++)
                 buttonsText[i].color = Color.black;
+
+            for (int i = 0; i < titlesText.Length; i++)
+                titlesText[i].color = Color.black;
         }
 
         int onInt = Convert.ToInt32(onBool);
-        ChangeThemeImage(onInt);
+        ChangeImage(onInt);
         ChangeBackgroundTheme(onInt);
         PlayerPrefs.SetInt("Theme", onInt);
     }
